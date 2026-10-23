@@ -1,12 +1,12 @@
 <style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 html,
 body {
   margin: 0;
   padding: 0;
   background: #171722;
 }
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 #margus-cv {
   --bg:#171722; --fg:#ececf2; --muted:#a7a7b5; --card:#20202d; --border:#3a3650;
   --cyan:#68e5ef; --magenta:#e44ca5; --purple:#7254c7;
@@ -81,8 +81,9 @@ body {
 #margus-cv .job li { position:relative; padding-left:16px; color:#d0d0da; font-size:14px; line-height:1.6; }
 #margus-cv .job li::before { content:""; position:absolute; left:0; top:.7em; width:6px; height:4px; background:var(--purple); }
 #margus-cv .project-block { margin-top:20px; padding-top:16px; border-top:1px solid var(--border); }
-#margus-cv .project-meta { color:var(--magenta); font:12px "JetBrains Mono",monospace; }
-#margus-cv .project-link { display:inline-flex; align-items:center; gap:6px; margin:8px 0 12px; color:var(--cyan); font-size:14px; font-weight:600; }
+#margus-cv .project-meta { color:var(--magenta); font:11px "JetBrains Mono",monospace; text-transform:uppercase; letter-spacing:.18em; }
+#margus-cv .project-link { display:inline-flex; align-items:center; gap:6px; margin:8px 0 6px; color:var(--cyan); font-size:14px; font-weight:600; }
+#margus-cv .project-role { margin:0 0 12px; color:var(--muted); font-size:12px; }
 #margus-cv .project-link:hover { text-decoration:underline; }
 #margus-cv .project-link svg { width:16px; height:16px; }
 
@@ -225,11 +226,12 @@ body {
             </ul>
 
             <div class="project-block">
-              <div class="project-meta">Apr 2024 – Dec 2025 · Tech Lead</div>
+              <div class="project-meta">Selected Project · Apr 2024 – Dec 2025</div>
               <a class="project-link" href="https://www.dynamicrenderinteractive.com/work/case-study-2" target="_blank" rel="noopener">
-                Unreleased PC / VR Cross-Play Multiplayer Project
+                Cradle of Sins
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
               </a>
+              <div class="project-role">Tech Lead / Senior Unreal Engine Developer</div>
               <ul>
                 <li>Led small-team task planning, code reviews and Perforce/Jira workflows.</li>
                 <li>Built and maintained dedicated-server multiplayer gameplay using replication, authority and RPC patterns.</li>
@@ -269,14 +271,14 @@ body {
         <a class="work-card featured" href="https://www.dynamicrenderinteractive.com/work/case-study-2" target="_blank" rel="noopener">
           <div>
             <div class="work-top"><span><span class="work-num">01</span> / Unreleased</span><span class="arrow">↗</span></div>
-            <h3 class="work-title">Unreleased PC / VR Cross-Play Title</h3>
+            <h3 class="work-title">Cradle of Sins</h3>
             <p class="work-desc">Tech Lead / Senior Unreal Engine Developer</p>
           </div>
           <div class="tags">
             <span class="tag magenta">Cross-play multiplayer</span><span class="tag magenta">Dedicated servers</span>
             <span class="tag magenta">Replication</span><span class="tag magenta">AWS / GameLift</span>
             <span class="tag magenta">Pixel Streaming</span><span class="tag magenta">Performance optimization</span>
-            <span class="tag magenta">Editor / development tools</span>
+            <span class="tag magenta">Editor / development tools</span><span class="tag magenta">VR</span><span class="tag magenta">PC</span>
           </div>
         </a>
 
@@ -284,7 +286,7 @@ body {
           <div class="work-top"><span><span class="work-num">02</span> / Released VR single-player title</span><span class="arrow">↗</span></div>
           <h3 class="work-title">Slum Ball</h3>
           <p class="work-desc">Gameplay / Optimization</p>
-          <div class="tags" style="margin-top:16px"><span class="tag">Gameplay</span><span class="tag">Blueprint / C++</span><span class="tag">Optimization</span></div>
+          <div class="tags" style="margin-top:16px"><span class="tag">VR</span><span class="tag">Gameplay</span><span class="tag">Blueprint / C++</span><span class="tag">Optimization</span></div>
         </a>
 
         <a class="work-card" href="https://www.dynamicrenderinteractive.com/work/case-study-1" target="_blank" rel="noopener">
