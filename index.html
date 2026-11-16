@@ -1,320 +1,188 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>God Machine devlog preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;1,400&family=Saira+Stencil+One&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: #171722;
-}
-#margus-cv {
-  --bg:#171722; --fg:#ececf2; --muted:#a7a7b5; --card:#20202d; --border:#3a3650;
-  --cyan:#68e5ef; --magenta:#e44ca5; --purple:#7254c7;
-  font-family:"Space Grotesk",Arial,sans-serif; background:var(--bg); color:var(--fg);
-  width:100%; box-sizing:border-box; padding:56px 24px; line-height:1.5; overflow:hidden; position:relative;
-}
-#margus-cv *, #margus-cv *::before, #margus-cv *::after { box-sizing:border-box; }
-#margus-cv a { color:inherit; text-decoration:none; }
-#margus-cv .cv-wrap { max-width:1152px; margin:0 auto; position:relative; z-index:1; }
-#margus-cv .cv-grid-bg {
-  position:absolute; inset:0 0 auto 0; height:480px; pointer-events:none; opacity:.3;
-  background-image:linear-gradient(rgba(76,67,105,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(76,67,105,.28) 1px,transparent 1px);
-  background-size:48px 48px; -webkit-mask-image:linear-gradient(#000,transparent); mask-image:linear-gradient(#000,transparent);
-}
-#margus-cv .hero { display:grid; grid-template-columns:1.6fr 1fr; gap:32px; border-bottom:1px solid var(--border); padding-bottom:40px; }
-#margus-cv .eyebrow,#margus-cv .section-title,#margus-cv .mono { font-family:"JetBrains Mono",monospace; }
-#margus-cv .eyebrow {
-  display:flex; align-items:center; gap:8px; margin-bottom:16px; color:var(--muted);
-  font-size:11px; letter-spacing:.25em; text-transform:uppercase;
-}
-#margus-cv .eyebrow::before { content:""; width:32px; height:1px; background:var(--magenta); }
-#margus-cv h1 { margin:0; font-size:60px; line-height:1; letter-spacing:-.025em; font-weight:700; }
-#margus-cv .role { margin:12px 0 0; font-size:20px; color:var(--cyan); font-weight:500; }
-#margus-cv .subrole { margin:4px 0 0; color:var(--muted); font:14px "JetBrains Mono",monospace; }
-#margus-cv .founder { margin:8px 0 0; color:var(--muted); font-size:14px; }
-#margus-cv .dot { color:var(--magenta); }
-#margus-cv .intro { margin:24px 0 0; max-width:680px; font-size:16px; color:#d4d4dd; }
-#margus-cv .intro + .intro { margin-top:12px; color:var(--muted); }
-#margus-cv .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
-#margus-cv .btn {
-  display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border:1px solid var(--border);
-  font:12px "JetBrains Mono",monospace; text-transform:uppercase; letter-spacing:.08em; transition:.18s ease;
-}
-#margus-cv .btn svg { width:16px; height:16px; }
-#margus-cv .btn.primary { background:var(--cyan); border-color:var(--cyan); color:#171722; }
-#margus-cv .btn.primary:hover { box-shadow:0 0 18px -6px var(--cyan); transform:translateY(-1px); }
-#margus-cv .btn.secondary:hover { color:var(--magenta); border-color:var(--magenta); }
-
-#margus-cv .contact-card { background:rgba(32,32,45,.76); border:1px solid var(--border); padding:20px; position:relative; align-self:start; }
-#margus-cv .contact-card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--cyan); }
-#margus-cv .contact-row { display:flex; gap:12px; align-items:center; font-size:14px; color:#d8d8e0; margin-bottom:12px; overflow-wrap:anywhere; }
-#margus-cv .contact-row svg { width:16px; height:16px; color:var(--muted); flex:none; }
-#margus-cv a.contact-row { transition:.15s ease; }
-#margus-cv a.contact-row:hover { color:var(--cyan); }
-#margus-cv .availability { border-top:1px solid var(--border); margin-top:20px; padding-top:16px; }
-#margus-cv .mini-label { color:var(--magenta); font:10px "JetBrains Mono",monospace; letter-spacing:.2em; text-transform:uppercase; margin-bottom:8px; }
-#margus-cv .tags { display:flex; flex-wrap:wrap; gap:6px; }
-#margus-cv .tag { display:inline-block; border:1px solid var(--border); padding:2px 8px; font:11px "JetBrains Mono",monospace; color:#d6d6df; }
-#margus-cv .tag.cyan { border-color:rgba(104,229,239,.5); color:var(--cyan); }
-#margus-cv .tag.magenta { border-color:rgba(228,76,165,.5); color:var(--magenta); }
-
-#margus-cv section { padding-top:40px; }
-#margus-cv .section-title {
-  display:flex; align-items:center; gap:12px; margin:0 0 24px; color:var(--cyan);
-  font-size:11px; letter-spacing:.2em; text-transform:uppercase;
-}
-#margus-cv .section-title::after { content:""; height:1px; flex:1; background:linear-gradient(90deg,var(--border),transparent); }
-
-#margus-cv .skills { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; border:1px solid var(--border); background:var(--border); }
-#margus-cv .skill { background:var(--bg); padding:16px; transition:.15s ease; }
-#margus-cv .skill:hover { background:var(--card); }
-#margus-cv .skill-name { margin-bottom:8px; color:var(--cyan); font:11px "JetBrains Mono",monospace; letter-spacing:.08em; text-transform:uppercase; }
-
-#margus-cv .experience-list { display:flex; flex-direction:column; gap:32px; }
-#margus-cv .job { display:grid; grid-template-columns:220px 1fr; gap:32px; }
-#margus-cv .date { color:var(--magenta); font:12px "JetBrains Mono",monospace; }
-#margus-cv .company { margin-top:4px; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
-#margus-cv .location { margin-top:4px; color:var(--muted); font-size:12px; }
-#margus-cv .job-body { border-left:1px solid var(--border); padding-left:20px; }
-#margus-cv .job-title { color:var(--cyan); font-weight:600; margin-bottom:12px; }
-#margus-cv .job ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
-#margus-cv .job li { position:relative; padding-left:16px; color:#d0d0da; font-size:14px; line-height:1.6; }
-#margus-cv .job li::before { content:""; position:absolute; left:0; top:.7em; width:6px; height:4px; background:var(--purple); }
-#margus-cv .project-block { margin-top:20px; padding-top:16px; border-top:1px solid var(--border); }
-#margus-cv .project-meta { color:var(--magenta); font:11px "JetBrains Mono",monospace; text-transform:uppercase; letter-spacing:.18em; }
-#margus-cv .project-link { display:inline-flex; align-items:center; gap:6px; margin:8px 0 6px; color:var(--cyan); font-size:14px; font-weight:600; }
-#margus-cv .project-role { margin:0 0 12px; color:var(--muted); font-size:12px; }
-#margus-cv .project-link:hover { text-decoration:underline; }
-#margus-cv .project-link svg { width:16px; height:16px; }
-
-#margus-cv .work-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-#margus-cv .work-card { display:block; position:relative; padding:20px; border:1px solid var(--border); background:rgba(32,32,45,.76); transition:.18s ease; }
-#margus-cv .work-card:hover { border-color:rgba(104,229,239,.7); transform:translateY(-2px); }
-#margus-cv .work-card.featured { grid-column:1/-1; display:grid; grid-template-columns:1fr 1.3fr; gap:32px; }
-#margus-cv .work-card::before { content:""; position:absolute; right:0; top:0; width:64px; height:1px; background:var(--cyan); }
-#margus-cv .work-card.featured::before { background:var(--magenta); }
-#margus-cv .work-top { display:flex; justify-content:space-between; align-items:center; color:var(--muted); font:11px "JetBrains Mono",monospace; }
-#margus-cv .work-num { color:var(--cyan); }
-#margus-cv .featured .work-num { color:var(--magenta); }
-#margus-cv .arrow { opacity:0; transition:.15s ease; color:var(--cyan); }
-#margus-cv .work-card:hover .arrow { opacity:1; }
-#margus-cv .work-title { margin:12px 0 0; font-size:20px; line-height:1.15; font-weight:700; text-transform:uppercase; }
-#margus-cv .featured .work-title { font-size:30px; }
-#margus-cv .work-desc { margin:8px 0 0; color:var(--muted); font-size:14px; }
-
-#margus-cv .education { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-#margus-cv .edu-date { color:var(--muted); font:11px "JetBrains Mono",monospace; }
-#margus-cv .edu-title { font-size:14px; font-weight:500; }
-#margus-cv .edu-desc { color:var(--muted); font-size:14px; }
-#margus-cv .interests { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
-#margus-cv .interest { border-left:1px solid var(--border); padding-left:16px; }
-#margus-cv .interest-title { font-size:14px; font-weight:500; }
-#margus-cv .interest-desc { color:var(--muted); font-size:14px; margin-top:2px; }
-#margus-cv footer { margin-top:24px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font:11px "JetBrains Mono",monospace; }
-
-@media (max-width:900px) {
-  #margus-cv { padding:40px 20px; }
-  #margus-cv .hero { grid-template-columns:1fr; }
-  #margus-cv h1 { font-size:44px; }
-  #margus-cv .skills { grid-template-columns:repeat(2,1fr); }
-  #margus-cv .job { grid-template-columns:1fr; gap:12px; }
-  #margus-cv .job-body { padding-left:16px; }
-  #margus-cv .work-grid { grid-template-columns:1fr; }
-  #margus-cv .work-card.featured { grid-column:auto; grid-template-columns:1fr; gap:16px; }
-  #margus-cv .education,#margus-cv .interests { grid-template-columns:1fr; }
-}
-@media (max-width:560px) {
-  #margus-cv h1 { font-size:38px; }
-  #margus-cv .skills { grid-template-columns:1fr; }
-  #margus-cv .featured .work-title { font-size:24px; }
-}
-@media print {
-  #margus-cv { --bg:#fff; --fg:#222; --muted:#555; --card:#fff; --border:#ccc; --cyan:#2c6670; --magenta:#8d3568; --purple:#666; padding:0; color:#222; }
-  #margus-cv .cv-grid-bg,#margus-cv .no-print { display:none!important; }
-  #margus-cv .contact-card,#margus-cv .work-card { background:#fff; }
-  #margus-cv .intro,#margus-cv .job li { color:#333; }
-}
-</style>
-
-<div id="margus-cv">
-  <div class="cv-grid-bg"></div>
-  <div class="cv-wrap">
-    <header class="hero">
-      <div>
-        <div class="eyebrow">CV / Unreal Engine</div>
-        <h1>Margus Mägi</h1>
-        <p class="role">Senior Unreal Engine Developer</p>
-        <p class="subrole">Gameplay / Multiplayer <span class="dot">·</span> Tech Lead</p>
-        <p class="founder">Founder - Dynamic Render Interactive OÜ</p>
-
-        <p class="intro">Unreal Engine developer with <strong>8+ years of UE4/UE5</strong> experience and <strong>4+ years as Tech Lead</strong>.</p>
-        <p class="intro">Professional experience across games, VR, multiplayer and real-time interactive projects. Hands-on background in gameplay programming, networking, optimization, tools, backend-connected systems and production Unreal Engine workflows. Technical leadership across architecture, planning, code reviews and technical decision-making.</p>
-
-        <div class="hero-actions no-print">
-          <a class="btn primary" href="https://www.dynamicrenderinteractive.com/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            Website
-          </a>
-          <a class="btn secondary" href="mailto:margus@dynamicrenderinteractive.com">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
-            Contact
-          </a>
-        </div>
-      </div>
-
-      <aside class="contact-card">
-        <div class="contact-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>Keila, Estonia</span>
-        </div>
-        <a class="contact-row" href="mailto:margus@dynamicrenderinteractive.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
-          <span>margus@dynamicrenderinteractive.com</span>
-        </a>
-        <a class="contact-row" href="https://dynamicrenderinteractive.com/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-          <span>dynamicrenderinteractive.com</span>
-        </a>
-        <a class="contact-row" href="https://linkedin.com/in/margusmagi-unreal" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-          <span>linkedin.com/in/margusmagi-unreal</span>
-        </a>
-
-        <div class="availability">
-          <div class="mini-label">Availability</div>
-          <div class="tags">
-            <span class="tag">Remote</span><span class="tag">Full-time / part-time</span><span class="tag">Employment</span>
-            <span class="tag">Contract / freelance</span><span class="tag">B2B</span>
-          </div>
-        </div>
-        <div class="tags" style="margin-top:16px">
-          <span class="tag cyan">UE5</span><span class="tag cyan">C++</span><span class="tag cyan">Multiplayer</span><span class="tag cyan">AWS</span>
-        </div>
-      </aside>
-    </header>
-
-    <section>
-      <h2 class="section-title">Core Skills</h2>
-      <div class="skills">
-        <div class="skill"><div class="skill-name">Unreal</div><div class="tags"><span class="tag">UE4 / UE5</span><span class="tag">C++</span><span class="tag">Blueprint</span></div></div>
-        <div class="skill"><div class="skill-name">Gameplay</div><div class="tags"><span class="tag">Gameplay systems</span><span class="tag">Tools</span><span class="tag">Editor utilities</span></div></div>
-        <div class="skill"><div class="skill-name">Multiplayer</div><div class="tags"><span class="tag">Dedicated servers</span><span class="tag">Replication</span><span class="tag">Authority</span><span class="tag">RPC patterns</span></div></div>
-        <div class="skill"><div class="skill-name">Performance</div><div class="tags"><span class="tag">Profiling</span><span class="tag">Optimization</span><span class="tag">Refactoring</span></div></div>
-        <div class="skill"><div class="skill-name">Cloud / Backend</div><div class="tags"><span class="tag">AWS</span><span class="tag">GameLift</span><span class="tag">Cognito</span><span class="tag">API Gateway</span><span class="tag">DynamoDB</span><span class="tag">Lambda</span><span class="tag">EC2</span><span class="tag">Linux servers</span></div></div>
-        <div class="skill"><div class="skill-name">Streaming</div><div class="tags"><span class="tag">Unreal Engine Pixel Streaming</span><span class="tag">WebRTC</span></div></div>
-        <div class="skill"><div class="skill-name">Development infrastructure</div><div class="tags"><span class="tag">Perforce</span><span class="tag">UnrealGameSync (UGS)</span><span class="tag">Horde</span><span class="tag">Backups / automation</span></div></div>
-        <div class="skill"><div class="skill-name">Workflow</div><div class="tags"><span class="tag">Jira</span><span class="tag">Code reviews</span><span class="tag">Remote team collaboration</span></div></div>
-        <div class="skill"><div class="skill-name">Automation / scripting</div><div class="tags"><span class="tag">Python</span><span class="tag">Bash</span></div></div>
-        <div class="skill"><div class="skill-name">AI-assisted development</div><div class="tags"><span class="tag">Claude Code</span><span class="tag">ChatGPT</span><span class="tag">Coding</span><span class="tag">Debugging</span><span class="tag">Research</span></div></div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Experience</h2>
-      <div class="experience-list">
-        <article class="job">
-          <div>
-            <div class="date">Apr 2024 – Present</div>
-            <div class="company">Dynamic Render Interactive OÜ</div>
-            <div class="location">Keila, Estonia</div>
-          </div>
-          <div class="job-body">
-            <div class="job-title">Founder / Senior Unreal Engine Developer</div>
-            <ul>
-              <li>Founded Dynamic Render Interactive OÜ for Unreal Engine development, contract work and independent projects.</li>
-              <li>Built and maintain a small-studio Unreal development stack using Perforce, UnrealGameSync and Horde, including automated NAS backups and supporting scripts.</li>
-            </ul>
-
-            <div class="project-block">
-              <div class="project-meta">Selected Project · Apr 2024 – Dec 2025</div>
-              <a class="project-link" href="https://www.dynamicrenderinteractive.com/work/case-study-2" target="_blank" rel="noopener">
-                Cradle of Sins
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-              </a>
-              <div class="project-role">Tech Lead / Senior Unreal Engine Developer</div>
-              <ul>
-                <li>Led small-team task planning, code reviews and Perforce/Jira workflows.</li>
-                <li>Built and maintained dedicated-server multiplayer gameplay using replication, authority and RPC patterns.</li>
-                <li>Profiled and optimized game/render threads; delivered stability and performance improvements.</li>
-                <li>Refactored legacy systems toward data-oriented architecture and built editor tools to speed up designer iteration.</li>
-                <li>Migrated online/backend functionality from GameSparks to AWS: Cognito, API Gateway REST/WebSocket, DynamoDB, Lambda, GameLift and EC2.</li>
-                <li>Designed and implemented a browser-based interactive spectator system using Pixel Streaming/WebRTC, with cloud-hosted spectator clients connecting to active GameLift sessions and streaming live Unreal sessions to web viewers.</li>
-                <li>Implemented bidirectional browser-to-Unreal interaction, allowing authorized viewers to trigger meteor showers, player buffs and item spawns through the streamed game view.</li>
-                <li>Built AWS automation with Lambda, EC2 and Python/Bash for instance launch/configuration, session lifecycle and cleanup, GameLift connection, and reporting gameplay-event results and match statistics to web/backend services; collaborated with the web developer on browser-side integration.</li>
-              </ul>
-            </div>
-          </div>
-        </article>
-
-        <article class="job">
-          <div>
-            <div class="date">Sep 2017 – Apr 2024</div>
-            <div class="company">U24 Solutions</div>
-            <div class="location">Tallinn, Estonia</div>
-          </div>
-          <div class="job-body">
-            <div class="job-title">Unreal Engine Developer → Tech Lead</div>
-            <ul>
-              <li>Unreal Engine development across released VR projects and interactive experiences; implemented gameplay features in Blueprint/C++.</li>
-              <li>Profiled and optimized performance; refactored and maintained production codebases.</li>
-              <li>Tech Lead: task planning, code reviews, technical direction and team workflows.</li>
-              <li>Released VR work: Slum Ball — single-player title, gameplay/optimization; additional short-form VR experiences — gameplay.</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Selected Work</h2>
-      <div class="work-grid">
-        <a class="work-card featured" href="https://www.dynamicrenderinteractive.com/work/case-study-2" target="_blank" rel="noopener">
-          <div>
-            <div class="work-top"><span><span class="work-num">01</span> / Unreleased</span><span class="arrow">↗</span></div>
-            <h3 class="work-title">Cradle of Sins</h3>
-            <p class="work-desc">Tech Lead / Senior Unreal Engine Developer</p>
-          </div>
-          <div class="tags">
-            <span class="tag magenta">Cross-play multiplayer</span><span class="tag magenta">Dedicated servers</span>
-            <span class="tag magenta">Replication</span><span class="tag magenta">AWS / GameLift</span>
-            <span class="tag magenta">Pixel Streaming</span><span class="tag magenta">Performance optimization</span>
-            <span class="tag magenta">Editor / development tools</span><span class="tag magenta">VR</span><span class="tag magenta">PC</span>
-          </div>
-        </a>
-
-        <a class="work-card" href="https://store.steampowered.com/app/850500/Slum_Ball_VR_Tournament/" target="_blank" rel="noopener">
-          <div class="work-top"><span><span class="work-num">02</span> / Released VR single-player title</span><span class="arrow">↗</span></div>
-          <h3 class="work-title">Slum Ball</h3>
-          <p class="work-desc">Gameplay / Optimization</p>
-          <div class="tags" style="margin-top:16px"><span class="tag">VR</span><span class="tag">Gameplay</span><span class="tag">Blueprint / C++</span><span class="tag">Optimization</span></div>
-        </a>
-
-        <a class="work-card" href="https://www.dynamicrenderinteractive.com/work/case-study-1" target="_blank" rel="noopener">
-          <div class="work-top"><span><span class="work-num">03</span> / Promotional cinematic</span><span class="arrow">↗</span></div>
-          <h3 class="work-title">GSCAN</h3>
-          <p class="work-desc">Created investor-facing promotional renders and footage showcasing the product and its workflow.</p>
-          <div class="tags" style="margin-top:16px"><span class="tag">Scene setup</span><span class="tag">Lighting</span><span class="tag">Cameras</span><span class="tag">Sequencer</span><span class="tag">Rendered output</span></div>
-        </a>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Education</h2>
-      <div class="education">
-        <div><div class="edu-date">2015–2016</div><div class="edu-title">TalTech</div><div class="edu-desc">IT coursework</div></div>
-        <div><div class="edu-date">2011–2014</div><div class="edu-title">University of Tartu</div><div class="edu-desc">Physics coursework</div></div>
-        <div><div class="edu-date">2016</div><div class="edu-title">Web design &amp; dynamic web development</div><div class="edu-desc">Course</div></div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Interests</h2>
-      <div class="interests">
-        <div class="interest"><div class="interest-title">Disc golf</div><div class="interest-desc">Estonian Doubles Amateur Champion (2025)</div></div>
-        <div class="interest"><div class="interest-title">Music</div><div class="interest-desc">Piano, guitar, electronic music production</div></div>
-      </div>
-    </section>
-
-    <footer>© Margus Mägi</footer>
-  </div>
-</div>
+:root{--bg:#150F0A;--panel:#2D221B;--text:#D9B29C;--accent:#D3954C;--rust:#8C3A29}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:21px;line-height:1.45}
+.bar{position:sticky;top:0;z-index:5;background:var(--rust);color:#fff;padding:10px 16px;font-size:18px;letter-spacing:.02em}
+.bar b{background:#ffe14d;color:#150F0A;padding:1px 8px;border-radius:3px}
+.warn{color:#ffe14d}
+main{max-width:760px;margin:24px auto;padding:28px 32px;background:var(--panel);border-top:4px solid var(--accent)}
+h1,h2,h3{font-family:'Saira Stencil One',sans-serif;font-weight:400;color:var(--accent);line-height:1.15}
+h1{font-size:40px;margin:.2em 0 .6em} h2{font-size:30px;margin:1.6em 0 .5em;border-bottom:2px solid var(--rust);padding-bottom:6px} h3{font-size:24px;margin:1.4em 0 .4em}
+strong{color:#F0CDB4} ul{padding-left:1.2em} li{margin:.25em 0} code{font-size:.85em;background:var(--bg);padding:0 4px}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:rgba(0,0,0,.25)}
+figure{margin:1.4em 0} figure img{width:100%;display:block;border:1px solid var(--rust)}
+.ph{height:160px;display:flex;align-items:center;justify-content:center;border:2px dashed var(--rust);color:var(--accent);font-size:18px}
+figcaption{font-size:18px;opacity:.95;margin-top:6px} .fn{display:inline-block;font-size:13px;background:var(--bg);color:var(--accent);padding:0 6px;margin-right:8px;border-radius:2px}
+mark.todo{background:#ffe14d;color:#150F0A;padding:0 4px;border-radius:2px;font-weight:600}
+@media (max-width:600px){main{margin:0;padding:18px 16px} h1{font-size:30px} h2{font-size:25px} body{font-size:19px}}
+</style></head><body>
+<div class="bar">Preview only, not the itch post &middot; open markers: <b>0</b> (0 FILL, 0 CHECK) &middot; 3044 words &middot; 16 images</div>
+<main>
+<h1>Every take stays in: how five people built God Machine in five days</h1>
+<p>God Machine is a quick, dark, first-person time-loop shooter. You have 45 seconds to stop a missile launch. You die. The take resets, and your last run comes back as a ghost whose shots and lever holds still count.</p>
+<p>We are Pirates: five people and a stack of AI agents, five days, and one rule. No agent submits work until a human has approved that exact changelist.</p>
+<p>Below, day by day: what we built, what broke and how we fixed it, with quotes from the nine calls we recorded.</p>
+<figure><img src="media/00-hero-rc3.jpg" alt="First person view in red fog: a fortress tower glows behind sandbags, with the TAKE 1 of 10 banner and objectives on screen." loading="lazy"><figcaption><span class="fn">1. 00-hero-rc3.jpg (121 KB)</span><em>The final build, Take 1 of 10: open the gate, stop the launch. Every take you lose comes back as a ghost.</em></figcaption></figure>
+<h2>At a glance</h2>
+<ul>
+<li><strong>Who:</strong> Pirates. Margus, Nils, Surhay, Riho and Oliver.</li>
+<li><strong>When:</strong> theme reveal Wed 11 Nov, release builds Sun 15 Nov. Unreal Engine 5.8.4, Perforce, Trello.</li>
+<li><strong>Calls:</strong> nine, about 25 hours, all recorded and transcribed. Every quote below comes from them.</li>
+<li><strong>Agents:</strong> Claude Code and Codex (code, docs, builds), ChatGPT, Gemini, Nano Banana, GPT Image and Adobe Firefly (images, sounds), Meshy and Tripo (3D), Blender MCP (rigging).</li>
+<li><strong>The rule:</strong> agents work Trello cards; a human tests and approves one changelist; only then may the agent submit it. Margus logged it at 23:45 on night one.</li>
+<li><strong>Trello:</strong> 187 cards. 48 AI-labelled cards finished: 37 in Done, 8 in AI Done / Handoff, more in Human Testing.</li>
+<li><strong>Changelists:</strong> the first blockout map was CL 135 on Friday. By 19:38 on Sunday the counter passed 330, with 151 of 151 automated tests passing.</li>
+<li><strong>Generated vs kept:</strong> 71 3D models in one day, 70 imported, most rejected on Saturday's review.</li>
+<li><strong>Builds:</strong> RC1 461 MB, RC2 614 MB, RC3 849 MB. The jam limit is 1 GB.</li>
+</ul>
+<figure><img src="media/01-ghost-take.gif" alt="A translucent blue ghost from an earlier take walks through the player in a grey test level." loading="lazy"><figcaption><span class="fn">2. 01-ghost-take.gif (2503 KB)</span><em>An early test build: every take leaves a ghost. This one walks right through you.</em></figcaption></figure>
+<h2>The changelog</h2>
+<p>Each day ends with what we cut. It is a director's cut, after all.</p>
+<h3>Day 1, Wed 11 Nov: the theme</h3>
+<p>Theme: Director's Cut. First call: 21:36. Nils alone brought eight pitches: a rave rhythm game, a robot arena, Human GPT (you play the AI answering prompt spam), a 911 dispatcher, a reverse battle royale, and God Machine: a city-sized war machine run by a co-op crew, one player piloting, another keeping the batteries alive.</p>
+<p>Surhay: "I am hearing Margus's inner thoughts." Margus: "I'm hearing a very big game." Cut for scope. Remember the name.</p>
+<p>Surhay pitched the most literal take, cutting film as a mechanic, and reviewed it himself: "Wow, dead silence. Okay, bad idea."</p>
+<p><strong>Decided:</strong> Unreal 5.8.4, not the 5.9 preview, because the preview is more likely to break. Everyone runs the ideas through their own AI, posts bullet points on Discord, and we vote. Margus: "whatever happens tomorrow evening, we lock down the idea for good."</p>
+<figure><img src="media/03-day1-deleted-scenes.gif" alt="Film strip cards of rejected Day 1 game ideas get stamped CUT one after another." loading="lazy"><figcaption><span class="fn">3. 03-day1-deleted-scenes.gif (2451 KB)</span><em>Night one's deleted scenes. Every pitch gets a card, most get the CUT stamp.</em></figcaption></figure>
+<p><strong>Cut today:</strong> rave.exe, the robot arena, Human GPT, a turn-based party of cats and, for now, God Machine.</p>
+<h3>Day 2, Thu 12 Nov: the idea locks</h3>
+<p>Margus and Nils turned up with the same idea. Margus: "I managed to reach a point where Nils said, oh, maybe that is a good idea. It just took me like eight hours."</p>
+<p>You are a grunt with 45 seconds to stop an ICBM launch at an enemy fortress. You die, the take resets, and your last run replays as a ghost. Its bullets, grenades and button presses still count. Enemies ignore it. Margus: "The final cut is where a bunch of stuff is cut out, but this is the cut where every take is in."</p>
+<p><strong>The vote.</strong> The other finalist was an RPG built around AI-generated content. Surhay preferred it but would not oppose. Margus made the case: "what indie games are supposed to be doing these days is making something unique, taking chances."</p>
+<p><strong>The setup:</strong></p>
+<ul>
+<li>Perforce for code and assets, Trello for tasks. Margus already had a Claude session connected to the board, writing the task cards.</li>
+<li>Jam perks: a free month of Meshy with 10,000 credits, 3,000 Tripo credits and a week of Tripo Pro. Nils taught Riho the 3D pipeline.</li>
+<li>Surhay played a metal riff for the soundtrack. Margus: "the metallic riff was insane."</li>
+<li>Oliver took the devlog. Surhay pitched a mock documentary: each of us interviewed in the field, shot mid-sentence, take resets, next person. Nils on the interviewer: "He's literally commissar." It stayed a pitch. This post is the cut that survived.</li>
+</ul>
+<figure><img src="media/04-keep-the-take.png" alt="A sketch card titled The Take stamped KEEP, with Margus&#x27;s line about the final cut." loading="lazy"><figcaption><span class="fn">4. 04-keep-the-take.png (704 KB)</span><em>The one we kept. Margus's line from the Thursday call became the game's thesis.</em></figcaption></figure>
+<p><strong>Cut today:</strong> the AI RPG.</p>
+<h3>Day 3, Fri 13 Nov: first playable</h3>
+<p><strong>Built.</strong> Margus planned the architecture with Claude: one reset function that reloads the level, a fixed 60 Hz mission tick, and recordings that store commands, not outcomes. The moving shield landed in CL 159.</p>
+<p><strong>Broke: the wrong lever.</strong> With two levers, the ghost replayed its hold on the wrong one.</p>
+<ul>
+<li><strong>Cause:</strong> every placed lever defaulted to the same tag, so two levers shared one identity.</li>
+<li><strong>Fix:</strong> identity is the placed actor's name, saved in the map, so it survives every reload. Logged at 20:20.</li>
+</ul>
+<figure><img src="media/12-bug-lever-id.gif" alt="Two levers share one ID so the ghost pulls the wrong one, then each lever gets its own name." loading="lazy"><figcaption><span class="fn">5. 12-bug-lever-id.gif (2473 KB)</span><em>Two levers, one ID: the ghost walks to the wrong lever, faithfully. Then each lever gets its own name.</em></figcaption></figure>
+<p><strong>Art.</strong> It starts by hand. Nils sketches, image tools turn sketches into multi-view references, and Tripo builds and auto-rigs the model. For props Oliver used a grid trick: one image holds nine props in a 3x3 grid, a script cuts it into tiles, each tile goes into Meshy. On the night call: "I made 71 3D models for you boys to use."</p>
+<figure><img src="media/05-sketch-timelapse.gif" alt="A pencil line drawing of an armoured trooper fills in with a bandolier, pouches and knee guards." loading="lazy"><figcaption><span class="fn">6. 05-sketch-timelapse.gif (1042 KB)</span><em>The demolitionist, drawn by hand first. Every character starts as a sketch.</em></figcaption></figure>
+<figure><img src="media/07-grid-to-nine.gif" alt="An AI generated sheet of nine props is cut by a script into nine separate tiles." loading="lazy"><figcaption><span class="fn">7. 07-grid-to-nine.gif (2487 KB)</span><em>One generated sheet, nine props. A script does the cutting.</em></figcaption></figure>
+<p><strong>The night call ran to about 1 a.m.</strong> It ended on the first playable blockout. Margus: "So technically the game works now. But the only problem is there's no way I'm going to make it to the fortress in 45 seconds." Nils: "Oh, it's pretty far away, bro."</p>
+<p>Good by Sunday? Margus: "No, it's going to suck and we're going to lose." Then: "Do or die."</p>
+<p><strong>Cut today:</strong> editor binaries in Perforce. Everyone compiles the C++ locally instead.</p>
+<h3>Day 4, Sat 14 Nov: the meshes fail review</h3>
+<p>Early in the first Saturday call an agent took a mesh from the template, "and it's already doing recoil as well." Margus: "We're like underestimating AI."</p>
+<p>On the second call, from 16:58, Oliver loaded his models into the map for the first time.</p>
+<ul>
+<li>Nils: "What the hell is wrong with these meshes?"</li>
+<li>Oliver: "I didn't even notice it when I was looking."</li>
+<li>Oliver, closer: "this a little bit looks like hay stack, not sandbags."</li>
+</ul>
+<p>Walls with holes, doors in random places. The broken meshes stay out of the level.</p>
+<figure><img src="media/08-71-generated-failed.png" alt="A wall of AI generated level props with stamps reading 71 generated, many failed review, make new ones, and the note that fixing them costs more than making new ones." loading="lazy"><figcaption><span class="fn">8. 08-71-generated-failed.png (1046 KB)</span><em>Oliver's Meshy kit: 71 models generated in a day. Many failed review. Nils and Margus judged that fixing them would cost more than making new ones.</em></figcaption></figure>
+<p><strong>Broke: mesh weight.</strong></p>
+<ul>
+<li><strong>Cause:</strong> generators output huge meshes. A tank cut to 35,000 triangles still weighed 90 MB, because its source had 2 million.</li>
+<li><strong>Fix:</strong> Unreal's built-in LOD reduction. Nils cut one mesh to 3% of the original; a handgun went down to 13,000 "and it looks exactly the same." A 1.2 million triangle model gets cut to 250,000.</li>
+</ul>
+<figure><img src="media/10-triangles.png" alt="A bar chart: one AI model at 1,200,000 triangles against a 250,000 target after Unreal LOD." loading="lazy"><figcaption><span class="fn">9. 10-triangles.png (511 KB)</span><em>Triangles to scale: one AI model at 1.2 million, the 250,000 target after Unreal's LOD reduction.</em></figcaption></figure>
+<p><strong>Also broke:</strong> Firefly's heavy-trooper footsteps sounded like a giant mech. Nils: "he's taking the heavy troop too literally." A scope render target would have dropped the game to about 5 fps, so scopes went. Nils suggested funny tank wrecks. Surhay: "No, no, no, no. We do no funny." Margus: "This game is serious."</p>
+<p><strong>Broke: ghost drift.</strong> Replaying recorded inputs runs through per-frame movement, so a ghost climbs the stairs a little differently each time. Recording exact positions instead lets it phase through a shut door. The debate did not settle that night.</p>
+<figure><img src="media/11-bug-drift.gif" alt="A diagram shows a replayed ghost path drifting away from the lever, then the fix nudges the ghost back onto its path and snaps it into place before each action." loading="lazy"><figcaption><span class="fn">10. 11-bug-drift.gif (2431 KB)</span><em>Bug: raw input replay drifts off the recorded path and misses the lever. Fix: Hybrid replay nudges the ghost back onto its path and snaps it before it acts.</em></figcaption></figure>
+<p><strong>Night call, 22:38.</strong> Nils and Margus agreed that fixing the broken AI meshes costs more than making new ones. Nils: "everything that's rigged by Blender MCP is better." The one-piece landscape gave way to a hand-made desert, sand only, with tessellation. Margus turned on friendly fire, and a test tank went down: "Three grenades. That's all it took."</p>
+<figure><img src="media/09-greybox-to-fortress.png" alt="Side by side: a white greybox level on Day 3 and a red textured fortress on Day 5." loading="lazy"><figcaption><span class="fn">11. 09-greybox-to-fortress.png (1945 KB)</span><em>Same level, two days apart: the greybox on Friday, the desert fortress on Sunday.</em></figcaption></figure>
+<p><strong>Cut today:</strong> scopes, the AI level meshes, the one-piece landscape, and anything funny.</p>
+<h3>Day 5, Sun 15 Nov: objectives, sound, ship it</h3>
+<p><strong>Morning call, 11:36.</strong> Nils: "I think the overall goal is great, but I think we should make the current playable part good as well." Riho proposed the HUD goals; in the final build they read "Open the gate" (two levers) and "Stop the launch". He also redid the broken character rigs in Blender from scratch.</p>
+<p>Oliver had his agent wire the weapon sounds, the ambience and a music track per take into gameplay (CL 251). Nils: "Oliver is doing sound. I'm doing the level. Margus accidentally also did the sound."</p>
+<p><strong>Broke: the mixer.</strong> Margus checked CL 251: "None of the 16 uses sound class." Fix: CL 252 routes them through the sound classes.</p>
+<p><strong>The ghost fix.</strong> A drifting ghost now snaps back onto its recorded transform, or its earlier take never touches the lever. Oliver asked for a ghost glow. Margus: "Nils likes regular character, so we're going with that right now."</p>
+<p><strong>The name.</strong> The walker's working name could not stay in the game. Nils had one ready: "God machine." Later Oliver asked whether the title would be God Machine: Director's Cut. Margus: "Cut machine." Oliver: "Just God Machine." Night one's deleted scene came back as the title.</p>
+<figure><img src="media/15-walker-variants.gif" alt="A grid of AI generated walker variants, then a turntable of the chosen rusted walker." loading="lazy"><figcaption><span class="fn">12. 15-walker-variants.gif (2470 KB)</span><em>The walker that gave the game its name. Variants in, one walker out.</em></figcaption></figure>
+<p><strong>Release candidates.</strong> Claude Code ran the first builds on Oliver's PC. RC1 at 14:58: a 461 MB zip that reloaded after a timeout in 0.2 seconds and spawned its first ghost with zero errors. While the agent packaged RC2, using 25 of Oliver's 32 GB of RAM, Margus said: "We don't use our brains. We do, but AI tells us." RC2 landed just before 17:00 at 614 MB. Margus built RC3 at about 19:25: 849 MB.</p>
+<p><strong>Broke: the packaged build.</strong> Unreal cooks only the game map and what it references, so assets that C++ loads by path were left out. RC1 and the first RC2 shipped without arm IK, HUD and pause menu. Fix: those folders are always cooked now, and RC2 was rebuilt with them. The game opens paused in the pause menu instead of a main menu (CL 298).</p>
+<p><strong>Broke: ghosts that cannot jump.</strong> In a Shipping playtest Margus jumped a barrier and his ghost could not, so the take desynced. Cause: the recorder sampled the jump flag on the 60 Hz mission tick, but the engine clears it one frame after take-off. Fix: CL 322, in RC3, verified in play by Margus.</p>
+<p><strong>Last hours:</strong> the walker now walks its 80 m path. Tracers, volumetric fog, pixelation, film grain, ballistic impacts. The final build went out on Sunday night, under the 1 GB limit.</p>
+<figure><img src="media/00-walker-in-fog.jpg" alt="A giant walker silhouette looms in red fog above a desert with barbed wire and low buildings." loading="lazy"><figcaption><span class="fn">13. 00-walker-in-fog.jpg (227 KB)</span><em>The final build: the walker in the fog over the desert.</em></figcaption></figure>
+<p><strong>RC3 to RC4.</strong> The RC3 playtest list the team fixed for the final build:</p>
+<ul>
+<li>Music a bit too loud.</li>
+<li>Resolution changes applied only in fullscreen.</li>
+<li>You could walk through the walker.</li>
+<li>You could walk through the bunker, pipes and rubble at spawn, the bunker and tank wreck by the fortress, and the lights by the fortress entry.</li>
+<li>Enemies faced the wrong way unless they were shooting.</li>
+</ul>
+<p><strong>Cut today:</strong> the glowing ghost, the main menu, the missile launch at timeout, and the footstep loops Surhay threw out: "These are sound loops."</p>
+<h2>How the agents worked</h2>
+<p>Every agent read the same <code>AGENTS.md</code> first, plus five project skills: asset import, Perforce work, review handoff, Trello task and Unreal change.</p>
+<ul>
+<li><strong>One card, one human, one runner.</strong> Each agent task is a Trello card with the AI label and one accountable human. It moves AI To Do, AI Doing, AI Done / Handoff, Human Testing, Done, or Blocked.</li>
+<li><strong>Check out before you write.</strong> Binary assets are locked to one person. If someone else holds a file, the agent stops and blocks its card.</li>
+<li><strong>Hand off with evidence:</strong> the pending changelist, every file touched, the tests run, what a human should test.</li>
+<li><strong>Approval is per changelist.</strong> Any edit after approval cancels it.</li>
+<li><strong>Decisions live in a log, not in chat.</strong> Sixteen numbered entries by Sunday, several written by Margus in planning sessions with Claude.</li>
+<li><strong>The docs are agent work too.</strong> Codex rewrote the workflow docs and skills (CL 161). Claude Code imported Oliver's 70 Meshy models without opening the editor (CL 202).</li>
+</ul>
+<p><strong>It worked.</strong> On Friday Surhay's agent needed the player character for the arm IK, found Margus had it checked out, and moved its own card to Blocked. Surhay: "this setup worked well with Trello. I'm liking this."</p>
+<p><strong>It also broke.</strong> On Saturday Margus sat waiting while Surhay's agent built editor binaries: "I am blocked by our machines." Long-running agent changelists held shared files for hours, so Margus overruled the rule for text files and made the agent holding them do the merging. On one PC a submit pulled in about 327 generated files (CL 195, cleaned up in CL 200). Two agents produced the same sound task list. And one vague brief ran for two hours. Margus: "how did you even manage to make a task that took two hours to do?" Surhay: "I gave it more of a vague thing." His lesson by Sunday: "more specific instructions rather than saying like yo, figure it out yourself."</p>
+<p><strong>What the agents finished:</strong> 48 AI-labelled cards, among them the core loop, Hybrid ghost correction, grenades and rockets, enemy view cones, objectives, HUD, pause menu, the sound system and the packaged builds. Each passed a human first.</p>
+<h2>How the take system works</h2>
+<figure><img src="media/16-gameplay.gif" alt="First person view of the red fog fortress approach with the TAKE 1 of 10 banner, sandbags and a lit tower." loading="lazy"><figcaption><span class="fn">14. 16-gameplay.gif (2442 KB)</span><em>The final build: Take 1 of 10, on the approach to the fortress.</em></figcaption></figure>
+<ul>
+<li>A <strong>take</strong> is 45 seconds on a fixed 60 Hz mission tick: 2,700 ticks. The final build gives you 10 takes.</li>
+<li>We record transform samples, every input, and actions (fire, hold, commit) stamped by tick and sequence number, never by float seconds.</li>
+<li>On death, timeout or commit, the level reloads. Every finished recording spawns a ghost: the same character class as you, no glow.</li>
+<li>Ghosts replay <strong>commands, not outcomes</strong>. A ghost's shot is fired again into the current world, so this time it can hit or miss.</li>
+<li>Default replay is <strong>Hybrid</strong> (CL 285): recorded inputs drive real movement, a gentle nudge (strength 0.25) pulls the ghost toward its recorded path every tick, and a full snap happens right before it fires or interacts. More than 50 cm off its path, it desyncs.</li>
+<li>Interactions are first come, first served for players and ghosts alike. Commit while holding a lever and your ghost holds it to the end.</li>
+<li>Enemies ignore ghosts by default. Ghost sounds get an echo, so you can hear your past self.</li>
+</ul>
+<h2>One prompt</h2>
+<p>Most devlogs show the result. Here is the input. Nils, building the level, attached an image of a bunker and typed this, word for word:</p>
+<blockquote>"back to images: next bunker infantry door we need a concept, make it more detailed in our style, spikes, iron rivets, yellow hazard lines, Front, sides, back no background separate images. (continue with the grimdark ps1 style we've polished)"</blockquote>
+<p><strong>What came back</strong> after 3 minutes 11 seconds: a riveted concrete bunker with three spikes, hazard stripes, two red lamps, an armoured door and our Y emblem, as four images. It leans on "the grimdark ps1 style we've polished", a whole chat of earlier images. The context did the work, not the sentence.</p>
+<figure><img src="media/14-bunker-prompt.png" alt="A chat prompt asking for a bunker concept with spikes, rivets and hazard lines, and the generated bunker image." loading="lazy"><figcaption><span class="fn">15. 14-bunker-prompt.png (524 KB)</span><em>The real prompt and the real reply, from Nils's screen recording.</em></figcaption></figure>
+<p>For contrast, Oliver's prop sheets used long prompts that Claude wrote from his brief, with strict render rules: "Solid closed shapes in one piece, no thin wires, chains, cables, antennas or floating parts." The sandbag cell read: "Sandbag wall: a curved segment of sandbags, three bags high." What came back looked like a haystack.</p>
+<h2>What we think about AI</h2>
+<p>We do not agree, and we kept it that way.</p>
+<p><strong>Nils is the critic.</strong> "I wouldn't use these meshes in the final game because these all look like AI made." On one cannon he listed the tells: lumpy surfaces, lines that are not straight, "four barrels that go into one single barrel." Oliver conceded the legs but defended the lumps as rustic. Surhay: "It looks like hand forged."</p>
+<figure><img src="media/13-shield-by-hand.gif" alt="A metal shield with a Y emblem being painted by hand in Photoshop, zooming in on rivets and straps." loading="lazy"><figcaption><span class="fn">16. 13-shield-by-hand.gif (2461 KB)</span><em>The shield, painted by hand. Nils, the critic, works on the other half of the pipeline.</em></figcaption></figure>
+<p><strong>Surhay hates it and uses it.</strong> On Friday Oliver said generative AI was moving at "this [bleep] pace. Unreal." Surhay: "[bleep] that. I hate it so much." On Sunday: "it's actually showing us how fast we can ship games."</p>
+<p><strong>Oliver had no game-dev background.</strong> On Thursday he said AI was strong enough that you don't need technical knowledge, "as long as we have a strong architectural plan." Nils answered that an Unreal game is not a web game: you build isolated pieces and finish them one at a time. Both were right. Oliver's verdict on Sunday: "you need that human touch just to get the feel of the game."</p>
+<h2>What is not true yet</h2>
+<p>At submission, honestly:</p>
+<ul>
+<li>Ghosts still drift. The snap-back keeps them on their levers, but a ghost can still get stuck.</li>
+<li>One character model got the full skinning pass first. Others can clip into the camera.</li>
+<li>There is no main menu. The game starts in the level, paused.</li>
+<li>The walker walks, but it is a set piece, not an enemy.</li>
+<li>No ICBM launch when time runs out. It is still in the backlog.</li>
+<li>The lever, console and gate are still greybox models.</li>
+<li>On Sunday morning Nils said the playable part was not good enough yet. By evening it had objectives, a win at the console, a pause menu and fog. You judge.</li>
+</ul>
+<h2>Tools and licences</h2>
+<ul>
+<li><strong>Engine and code:</strong> Unreal Engine 5.8.4, Visual Studio, Perforce, Trello, Claude Code, Codex, ChatGPT.</li>
+<li><strong>Art and 3D:</strong> Nano Banana, GPT Image, Adobe Firefly, Meshy, Tripo, Blender with Blender MCP, Photoshop, hand sketches.</li>
+<li><strong>Third-party content:</strong> Fighting Game Loops and Sound Effects (Fab, ESM Team), Ballistics FX (Fab, Cubit), Modular Post Apocalyptic Desert Environment (Fab, JustB Studios), Lyra Starter Game animations (Epic Games), Free Weapon Sound Effects (Fab, SoundLab1), Essential Footsteps SFX (Fab, Sound Kajiya), Procedural Heartbeat (Fab, Timofei Shukshin), GenericNPCAnimPack and GrenadePack.</li>
+<li><strong>Music:</strong> a different war-themed loop per take, from the ESM pack above.</li>
+<li><strong>Calls:</strong> Google Meet with Gemini transcription, the source of every quote above.</li>
+</ul>
+<h2>Credits</h2>
+<ul>
+<li><strong>Margus:</strong> core loop, take and ghost systems, architecture, Perforce and Trello workflow</li>
+<li><strong>Nils:</strong> concept, level design, hand sketches, the walker, textures, the team's AI critic</li>
+<li><strong>Surhay Bas:</strong> movement, first-person arms, shield, sound</li>
+<li><strong>Riho:</strong> weapons, characters and vehicles, rigging</li>
+<li><strong>Oliver:</strong> devlog, asset generation, sound integration, release packaging</li>
+</ul>
+<p>On the Thursday call Surhay said it had been a while since any of us released a game. Nils: "We'll at least release something."</p>
+<p>We did. Every take is in.</p>
+</main></body></html>
